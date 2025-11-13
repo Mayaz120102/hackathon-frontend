@@ -88,7 +88,7 @@ const Dashboard = () => {
             <div className="mb-4">
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div 
-                  className="bg-gradient-to-r from-teal-500 to-cyan-500 h-3 rounded-full transition-all duration-500"
+                  className="bg-linear-to-r from-teal-500 to-cyan-500 h-3 rounded-full transition-all duration-500"
                   style={{ width: `${profileCompletion}%` }}
                 ></div>
               </div>
@@ -101,7 +101,7 @@ const Dashboard = () => {
             <div className="space-y-3">
               {completionTasks.map(task => (
                 <div key={task.id} className="flex items-center space-x-3">
-                  <div className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center ${
+                  <div className={`shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center ${
                     task.completed 
                       ? 'bg-teal-500 border-teal-500' 
                       : 'border-gray-300'
@@ -189,7 +189,7 @@ const Dashboard = () => {
                 const Icon = activity.icon;
                 return (
                   <div key={activity.id} className="flex items-start space-x-3">
-                    <div className={`flex-shrink-0 p-2 rounded-lg ${activity.color}`}>
+                    <div className={`shrink-0 p-2 rounded-lg ${activity.color}`}>
                       <Icon className="w-5 h-5" />
                     </div>
                     <div className="flex-1">
