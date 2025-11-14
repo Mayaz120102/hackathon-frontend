@@ -1,11 +1,12 @@
 // src/pages/ForgotPassword.jsx
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import authService from '../services/authService';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 
 const ForgotPassword = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -20,7 +21,8 @@ const ForgotPassword = () => {
       await authService.requestPasswordReset(email);
       setSuccess(true);
     } catch (err) {
-      setError('Failed to send reset email. Please try again.');
+      console.error('Password reset error:', err);
+      setError(err.response?.data?.detail || 'Failed to send reset email. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -43,9 +45,21 @@ const ForgotPassword = () => {
             <p className="text-sm text-gray-500 mb-6">
               Didn't receive the email? Check your spam folder or try again.
             </p>
-            <Link to="/login">
-              <Button className="w-full">Back to Login</Button>
-            </Link>
+            <div className="space-y-3">
+              <Link to="/login">
+                <Button className="w-full">Back to Login</Button>
+              </Link>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => {
+                  setSuccess(false);
+                  setEmail('');
+                }}
+              >
+                Try Another Email
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -84,6 +98,7 @@ const ForgotPassword = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="Enter your email"
+            autoFocus
           />
 
           <Button

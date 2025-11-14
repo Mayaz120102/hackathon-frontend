@@ -1,6 +1,6 @@
 // src/App.jsx
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import AuthProvider  from './context/AuthContext';
+import  AuthProvider from './context/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Layout from './components/layout/Layout';
 
@@ -13,6 +13,11 @@ import ResetPassword from './pages/ResetPassword';
 // Protected Pages
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import Jobs from './pages/Jobs';
+import JobDetails from './pages/JobDetails';
+
+// New Import
+import RecommendationsDashboard from './pages/RecommendationsDashboard';
 
 function App() {
   return (
@@ -37,6 +42,19 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* New Recommendations Route */}
+          <Route
+            path="/recommendations"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <RecommendationsDashboard />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          
           <Route
             path="/profile"
             element={
@@ -48,19 +66,30 @@ function App() {
             }
           />
 
-          {/* Placeholder routes for navigation items */}
+          {/* Jobs Routes */}
           <Route
             path="/jobs"
             element={
               <ProtectedRoute>
                 <Layout>
-                  <div className="p-8">
-                    <h1 className="text-3xl font-bold">Jobs Page - Coming Soon</h1>
-                  </div>
+                  <Jobs />
                 </Layout>
               </ProtectedRoute>
             }
           />
+          
+          <Route
+            path="/jobs/:id"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <JobDetails />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Placeholder Routes */}
           <Route
             path="/learning"
             element={
@@ -73,6 +102,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          
           <Route
             path="/applications"
             element={
@@ -85,6 +115,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          
           <Route
             path="/settings"
             element={

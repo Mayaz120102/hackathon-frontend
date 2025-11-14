@@ -61,7 +61,7 @@ const authService = {
   // Password reset confirm
   confirmPasswordReset: async (uidb64, token, newPassword) => {
     const response = await api.post(
-      `/accounts/password-reset-confirm/${uidb64}/${token}/`,
+      `/api/accounts/password-reset-confirm/${uidb64}/${token}/`,
       {
         new_password: newPassword,
       }

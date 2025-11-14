@@ -68,17 +68,9 @@ const Profile = () => {
   const validateForm = () => {
     const newErrors = {};
     
-    if (!profileData.firstName) {
-      newErrors.firstName = 'First name is required';
-    }
-    
-    if (!profileData.lastName) {
-      newErrors.lastName = 'Last name is required';
-    }
-    
-    if (profileData.phone && !/^\+?[\d\s-()]+$/.test(profileData.phone)) {
-      newErrors.phone = 'Invalid phone number format';
-    }
+    if (!profileData.firstName) newErrors.firstName = 'First name is required';
+    if (!profileData.lastName) newErrors.lastName = 'Last name is required';
+    if (profileData.phone && !/^\+?[\d\s-()]+$/.test(profileData.phone)) newErrors.phone = 'Invalid phone number format';
     
     return newErrors;
   };
@@ -97,7 +89,7 @@ const Profile = () => {
     setSuccessMessage('');
 
     try {
-      const response = await api.put('/accounts/profile/', {
+      const response = await api.put('/api/profiles/profile/', {
         first_name: profileData.firstName,
         last_name: profileData.lastName,
         phone: profileData.phone,
@@ -105,20 +97,16 @@ const Profile = () => {
         bio: profileData.bio,
         title: profileData.title,
         company: profileData.company,
-        skills: skills
+        skills: skills.join(', ')
       });
 
       updateUser(response.data);
       setSuccessMessage('Profile updated successfully!');
       setEditing(false);
       
-      setTimeout(() => {
-        setSuccessMessage('');
-      }, 3000);
+      setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
-      setErrors({
-        general: error.response?.data?.detail || 'Failed to update profile. Please try again.'
-      });
+      setErrors({ general: error.response?.data?.detail || 'Failed to update profile. Please try again.' });
     } finally {
       setLoading(false);
     }
@@ -139,33 +127,31 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Manage Your Profile</h1>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mb-8 text-center sm:text-left">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Manage Your Profile</h1>
         <p className="text-gray-600">Keep your profile updated to attract the best opportunities.</p>
       </div>
 
       {/* Profile Completion Card */}
-      <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-        <div className="flex justify-between items-center mb-3">
-          <h2 className="text-lg font-semibold text-gray-900">Profile Completion</h2>
+      <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-3">
+          <h2 className="text-lg font-semibold text-gray-900 mb-2 sm:mb-0">Profile Completion</h2>
           <span className="text-2xl font-bold text-cyan-600">{profileCompletion()}%</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
           <div
-            className="bg-linear-to-r from-cyan-500 to-teal-500 h-3 rounded-full transition-all duration-500"
+            className="bg-gradient-to-r from-cyan-500 to-teal-500 h-3 rounded-full transition-all duration-500"
             style={{ width: `${profileCompletion()}%` }}
           ></div>
         </div>
-        <p className="text-sm text-gray-600">
-          Complete your profile to get noticed!
-        </p>
+        <p className="text-sm text-gray-600 text-center sm:text-left">Complete your profile to get noticed!</p>
       </div>
 
       {/* Success Message */}
       {successMessage && (
         <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <p className="text-sm text-green-600 flex items-center">
+          <p className="text-sm text-green-600 flex items-center justify-center sm:justify-start">
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
@@ -177,29 +163,26 @@ const Profile = () => {
       {/* Error Message */}
       {errors.general && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-sm text-red-600">{errors.general}</p>
+          <p className="text-sm text-red-600 text-center sm:text-left">{errors.general}</p>
         </div>
       )}
 
       {/* Profile Card */}
-      <div className="bg-white rounded-xl shadow-sm p-8 mb-6">
-        <div className="flex items-start justify-between mb-6">
-          <div className="flex items-center space-x-4">
-            <div className="w-20 h-20 bg-linear-to-br from-cyan-500 to-teal-500 rounded-full flex items-center justify-center">
+      <div className="bg-white rounded-xl shadow-sm p-4 sm:p-8 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-6 space-y-4 sm:space-y-0 sm:space-x-6">
+          <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="w-20 h-20 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full flex items-center justify-center flex-shrink-0">
               <span className="text-3xl font-bold text-white">
-                {profileData.firstName?.charAt(0)?.toUpperCase() || 
-                 profileData.email?.charAt(0)?.toUpperCase() || 'U'}
+                {profileData.firstName?.charAt(0)?.toUpperCase() || profileData.email?.charAt(0)?.toUpperCase() || 'U'}
               </span>
             </div>
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">
-                {profileData.firstName && profileData.lastName 
-                  ? `${profileData.firstName} ${profileData.lastName}`
-                  : 'Complete Your Profile'}
+            <div className="text-center sm:text-left">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+                {profileData.firstName && profileData.lastName ? `${profileData.firstName} ${profileData.lastName}` : 'Complete Your Profile'}
               </h2>
               <p className="text-gray-600">{profileData.title || 'Add your title'}</p>
               {profileData.location && (
-                <p className="text-sm text-gray-500 flex items-center mt-1">
+                <p className="text-sm text-gray-500 flex items-center justify-center sm:justify-start mt-1">
                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -209,7 +192,8 @@ const Profile = () => {
               )}
             </div>
           </div>
-          <div className="flex space-x-2">
+
+          <div className="flex flex-wrap gap-2 justify-center sm:justify-end">
             {!editing ? (
               <button
                 onClick={() => setEditing(true)}
@@ -239,49 +223,35 @@ const Profile = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                First Name
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
               <input
                 type="text"
                 name="firstName"
                 value={profileData.firstName}
                 onChange={handleChange}
                 disabled={!editing}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:bg-gray-50 disabled:text-gray-600 ${
-                  errors.firstName ? 'border-red-300' : 'border-gray-300'
-                }`}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:bg-gray-50 disabled:text-gray-600 ${errors.firstName ? 'border-red-300' : 'border-gray-300'}`}
               />
-              {errors.firstName && (
-                <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>
-              )}
+              {errors.firstName && <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Last Name
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
               <input
                 type="text"
                 name="lastName"
                 value={profileData.lastName}
                 onChange={handleChange}
                 disabled={!editing}
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:bg-gray-50 disabled:text-gray-600 ${
-                  errors.lastName ? 'border-red-300' : 'border-gray-300'
-                }`}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:bg-gray-50 disabled:text-gray-600 ${errors.lastName ? 'border-red-300' : 'border-gray-300'}`}
               />
-              {errors.lastName && (
-                <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>
-              )}
+              {errors.lastName && <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
               <input
                 type="email"
                 name="email"
@@ -293,9 +263,7 @@ const Profile = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Phone Number
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
               <input
                 type="tel"
                 name="phone"
@@ -303,19 +271,13 @@ const Profile = () => {
                 onChange={handleChange}
                 disabled={!editing}
                 placeholder="+1 (555) 123-4567"
-                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:bg-gray-50 disabled:text-gray-600 ${
-                  errors.phone ? 'border-red-300' : 'border-gray-300'
-                }`}
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:bg-gray-50 disabled:text-gray-600 ${errors.phone ? 'border-red-300' : 'border-gray-300'}`}
               />
-              {errors.phone && (
-                <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
-              )}
+              {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Location
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
               <input
                 type="text"
                 name="location"
@@ -328,9 +290,7 @@ const Profile = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Current Title
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Current Title</label>
               <input
                 type="text"
                 name="title"
@@ -343,9 +303,7 @@ const Profile = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Company
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Company</label>
               <input
                 type="text"
                 name="company"
@@ -360,9 +318,7 @@ const Profile = () => {
 
           {/* Bio */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Bio
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
             <textarea
               name="bio"
               value={profileData.bio}
@@ -377,13 +333,13 @@ const Profile = () => {
       </div>
 
       {/* Skills Section */}
-      <div className="bg-white rounded-xl shadow-sm p-8">
-        <div className="flex justify-between items-center mb-6">
+      <div className="bg-white rounded-xl shadow-sm p-4 sm:p-8 mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-6">
           <h2 className="text-xl font-semibold text-gray-900">Skills</h2>
           {editing && (
             <button
               onClick={() => {}}
-              className="px-4 py-2 bg-cyan-50 text-cyan-600 rounded-lg text-sm font-medium hover:bg-cyan-100 transition-colors"
+              className="mt-2 sm:mt-0 px-4 py-2 bg-cyan-50 text-cyan-600 rounded-lg text-sm font-medium hover:bg-cyan-100 transition-colors"
             >
               + Add Skill
             </button>
@@ -391,7 +347,7 @@ const Profile = () => {
         </div>
 
         {editing && (
-          <div className="mb-6 flex space-x-2">
+          <div className="mb-6 flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
             <input
               type="text"
               value={newSkill}
