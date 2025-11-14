@@ -16,6 +16,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken') || null);
 
   useEffect(() => {
     checkAuthStatus();
@@ -38,18 +39,22 @@ const AuthProvider = ({ children }) => {
   };
 
   const register = async (userData) => {
-
-      const response = await authService.register(userData);
-      return response;
-
+    const response = await authService.register(userData);
+    return response;
   };
 
   const login = async (credentials) => {
-      const response = await authService.login(credentials);
-      setUser(response.user);
-      setIsAuthenticated(true);
-      return response;
-    
+    const response = await authService.login(credentials);
+    const { access, refresh, user } = response; // Assuming API returns these tokens
+    setUser(user);
+    setAccessToken(access); // Store access token in state
+    setIsAuthenticated(true);
+
+    // Save access token and refresh token in localStorage
+    localStorage.setItem('access_token', access);
+    localStorage.setItem('refresh_token', refresh);
+
+    return response;
   };
 
   const logout = async () => {
@@ -60,6 +65,11 @@ const AuthProvider = ({ children }) => {
     } finally {
       setUser(null);
       setIsAuthenticated(false);
+      setAccessToken(null);
+      
+      // Clear tokens from localStorage
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
     }
   };
 
@@ -71,12 +81,13 @@ const AuthProvider = ({ children }) => {
   const value = {
     user,
     isAuthenticated,
+    accessToken,
     loading,
     register,
     login,
     logout,
     updateUser,
-    checkAuthStatus
+    checkAuthStatus,
   };
 
   return (

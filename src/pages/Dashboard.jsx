@@ -92,7 +92,7 @@ const Dashboard = () => {
   const recentActivity = [
     {
       id: 1,
-      text: `Welcome to CareerPath! Complete your profile to get started.`,
+      text: `Welcome to CareerNest! Complete your profile to get started.`,
       time: 'Just now',
       icon: CheckCircle,
       color: 'text-teal-600 bg-teal-50'
@@ -139,7 +139,7 @@ const Dashboard = () => {
             <div className="mb-4">
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div 
-                  className="bg-gradient-to-r from-teal-500 to-cyan-500 h-3 rounded-full transition-all duration-500"
+                  className="bg-linear-to-r from-teal-500 to-cyan-500 h-3 rounded-full transition-all duration-500"
                   style={{ width: `${profileCompletion}%` }}
                 ></div>
               </div>
@@ -155,7 +155,7 @@ const Dashboard = () => {
               {completionTasks.map(task => (
                 <div key={task.id} className="flex items-center justify-between">
                   <div className="flex items-center space-x-3 flex-1">
-                    <div className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center ${
+                    <div className={`shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center ${
                       task.completed 
                         ? 'bg-teal-500 border-teal-500' 
                         : 'border-gray-300'
@@ -215,7 +215,7 @@ const Dashboard = () => {
                     onClick={() => handleViewJob(job.id)}
                   >
                     <div className="flex items-center space-x-4">
-                      <div className={`w-12 h-12 ${getCompanyColor(job.company)} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                      <div className={`w-12 h-12 ${getCompanyColor(job.company)} rounded-lg flex items-center justify-center shrink-0`}>
                         <span className="text-white font-bold text-sm">
                           {getCompanyInitials(job.company)}
                         </span>
@@ -288,7 +288,7 @@ const Dashboard = () => {
                 const Icon = activity.icon;
                 return (
                   <div key={activity.id} className="flex items-start space-x-3">
-                    <div className={`flex-shrink-0 p-2 rounded-lg ${activity.color}`}>
+                    <div className={`shrink-0 p-2 rounded-lg ${activity.color}`}>
                       <Icon className="w-5 h-5" />
                     </div>
                     <div className="flex-1">
@@ -309,9 +309,9 @@ const Dashboard = () => {
           </Card>
 
           {/* User Info Card */}
-          <Card className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50">
+          <Card className="p-6 bg-linear-to-br from-teal-50 to-cyan-50">
             <div className="flex items-center space-x-4 mb-4">
-              <div className="w-16 h-16 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-linaear-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center">
                 <span className="text-2xl font-bold text-white">
                   {user?.full_name?.split(' ').map(n => n[0]).join('') || 'U'}
                 </span>

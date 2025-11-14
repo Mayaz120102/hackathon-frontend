@@ -32,7 +32,7 @@ const authService = {
   logout: async () => {
     const refreshToken = localStorage.getItem("refresh_token");
     try {
-      await api.post("/api/accounts/logout/", { refresh: refreshToken });
+      await api.post("/accounts/logout/", { refresh: refreshToken });
     } finally {
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
@@ -42,26 +42,26 @@ const authService = {
 
   // Refresh token
   refreshToken: async () => {
-    const refreshToken = localStorage.getItem("refresh_token");
-    const response = await api.post("/api/accounts/token/refresh/", {
+    const refreshToken = localStorage.getItem("refreshToken");
+    const response = await api.post("/accounts/token/refresh/", {
       refresh: refreshToken,
     });
     if (response.data.access) {
-      localStorage.setItem("access_token", response.data.access);
+      localStorage.setItem("accessToken", response.data.access);
     }
     return response.data;
   },
 
   // Password reset request
   requestPasswordReset: async (email) => {
-    const response = await api.post("/api/accounts/password-reset/", { email });
+    const response = await api.post("/accounts/password-reset/", { email });
     return response.data;
   },
 
   // Password reset confirm
   confirmPasswordReset: async (uidb64, token, newPassword) => {
     const response = await api.post(
-      `/api/accounts/password-reset-confirm/${uidb64}/${token}/`,
+      `/accounts/password-reset-confirm/${uidb64}/${token}/`,
       {
         new_password: newPassword,
       }
@@ -75,9 +75,19 @@ const authService = {
     return userStr ? JSON.parse(userStr) : null;
   },
 
+  getRefreshToken: () => {
+    return localStorage.getItem("refreshToken");
+  },
+
   // Check if user is authenticated
   isAuthenticated: () => {
-    return !!localStorage.getItem("access_token");
+    return !!localStorage.getItem("accessToken");
+  },
+
+  clearAuth: () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("user");
   },
 };
 

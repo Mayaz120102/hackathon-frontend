@@ -117,7 +117,7 @@ const JobDetails = () => {
             {/* Job Header Card */}
             <div className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
-                <div className={`w-16 h-16 ${getCompanyColor(job.company)} rounded-xl flex items-center justify-center flex-shrink-0`}>
+                <div className={`w-16 h-16 ${getCompanyColor(job.company)} rounded-xl flex items-center justify-center shrink-0`}>
                   <span className="text-white font-bold text-xl">
                     {getCompanyInitials(job.company)}
                   </span>

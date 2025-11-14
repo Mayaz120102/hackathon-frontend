@@ -39,31 +39,31 @@ const jobService = {
 
   // Admin: Get all jobs
   adminGetAllJobs: async () => {
-    const response = await api.get("/api/admin/jobs/");
+    const response = await api.get("/admin/jobs/");
     return response.data;
   },
 
   // Admin: Create new job
   adminCreateJob: async (jobData) => {
-    const response = await api.post("api/admin/jobs/", jobData);
+    const response = await api.post("/admin/jobs/", jobData);
     return response.data;
   },
 
   // Admin: Update job (full)
   adminUpdateJob: async (id, jobData) => {
-    const response = await api.put(`api/admin/jobs/${id}/`, jobData);
+    const response = await api.put(`/admin/jobs/${id}/`, jobData);
     return response.data;
   },
 
   // Admin: Partial update job
   adminPatchJob: async (id, jobData) => {
-    const response = await api.patch(`api/admin/jobs/${id}/`, jobData);
+    const response = await api.patch(`/admin/jobs/${id}/`, jobData);
     return response.data;
   },
 
   // Admin: Delete job
   adminDeleteJob: async (id) => {
-    const response = await api.delete(`api/admin/jobs/${id}/`);
+    const response = await api.delete(`/admin/jobs/${id}/`);
     return response.data;
   },
 };

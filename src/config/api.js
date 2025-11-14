@@ -64,13 +64,14 @@ api.interceptors.response.use(
         );
 
         // Get new access token
-        const { access } = response.data;
+        // const { access } = response.data;
+        const newAccessToken = response.data.access;
 
         // Save new access token
-        localStorage.setItem("access_token", access);
+        localStorage.setItem("access_token", newAccessToken);
 
         // Update the Authorization header with new token
-        originalRequest.headers.Authorization = `Bearer ${access}`;
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 
         // Retry the original request with new token
         return api(originalRequest);
