@@ -15,6 +15,9 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Jobs from './pages/Jobs';
 import JobDetails from './pages/JobDetails';
+import AIRecommendations from './pages/AIRecommendations';
+import GapAnalysis from './pages/GapAnalysis';
+import CareerRoadmap from './pages/CareerRoadmap';
 
 // New Import
 import RecommendationsDashboard from './pages/RecommendationsDashboard';
@@ -124,6 +127,38 @@ function App() {
                   <div className="p-8">
                     <h1 className="text-3xl font-bold">Settings Page - Coming Soon</h1>
                   </div>
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/aircm"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <AIRecommendations />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+
+           <Route
+            path="/gapAnalysis"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <GapAnalysis />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+
+           <Route
+            path="/career"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <CareerRoadmap />
                 </Layout>
               </ProtectedRoute>
             }

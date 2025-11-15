@@ -4,19 +4,19 @@ import api from "../config/api";
 const profileService = {
   // Get user profile
   getProfile: async () => {
-    const response = await api.get("/profiles/profile");
+    const response = await api.get("/api/profiles/profile//");
     return response.data;
   },
 
   // Update user profile (without file)
   updateProfile: async (profileData) => {
-    const response = await api.put("/profiles/profile/", profileData);
+    const response = await api.put("/api/profiles/profile/", profileData);
     return response.data;
   },
 
   // Update profile with CV upload (multipart/form-data)
   updateProfileWithCV: async (formData) => {
-    const response = await api.put("/profiles/"profile/, formData, {
+    const response = await api.put("/api/profiles/profile/", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -26,7 +26,7 @@ const profileService = {
 
   // Partial update user profile
   patchProfile: async (profileData) => {
-    const response = await api.patch("/profiles/profile/", profileData);
+    const response = await api.patch("/api/profiles/profile/", profileData);
     return response.data;
   },
 
@@ -35,7 +35,7 @@ const profileService = {
     const formData = new FormData();
     formData.append("cv_pdf", file);
 
-    const response = await api.patch("/profiles/profile/", formData, {
+    const response = await api.patch("/api/profiles/profile/", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -45,7 +45,7 @@ const profileService = {
 
   // Delete CV
   deleteCV: async () => {
-    const response = await api.patch("/profiles/profile/", {
+    const response = await api.patch("/api/profiles/profile/", {
       cv_pdf: null,
     });
     return response.data;

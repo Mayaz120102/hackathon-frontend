@@ -54,14 +54,14 @@ const authService = {
 
   // Password reset request
   requestPasswordReset: async (email) => {
-    const response = await api.post("/accounts/password-reset/", { email });
+    const response = await api.post("/api/accounts/password-reset/", { email });
     return response.data;
   },
 
   // Password reset confirm
   confirmPasswordReset: async (uidb64, token, newPassword) => {
     const response = await api.post(
-      `/accounts/password-reset-confirm/${uidb64}/${token}/`,
+      `/api/accounts/password-reset-confirm/${uidb64}/${token}/`,
       {
         new_password: newPassword,
       }

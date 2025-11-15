@@ -77,6 +77,40 @@ const Layout = ({ children }) => {
                     Recommendations
                   </Link>
 
+                  {/* AI Services Dropdown */}
+                  <div className="relative group">
+                    <button className={`text-sm font-medium transition-colors flex items-center gap-1
+                      ${['/aircm', '/gapAnalysis', '/career'].includes(location.pathname) ? 'text-cyan-600' : 'text-gray-600 hover:text-gray-900'}
+                    `}>
+                      AI Services
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+
+                    {/* Dropdown */}
+                    <div className="absolute hidden group-hover:block bg-white shadow-lg border rounded-lg mt-2 w-48 z-50">
+                      <Link
+                        to="/aircm"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-cyan-50"
+                      >
+                        AI Recommendation
+                      </Link>
+                      <Link
+                        to="/gapAnalysis"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-cyan-50"
+                      >
+                        Gap Analysis
+                      </Link>
+                      <Link
+                        to="/career"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-cyan-50"
+                      >
+                        Career Roadmap
+                      </Link>
+                    </div>
+                  </div>
+
                   {/* User Menu */}
                   <div className="relative">
                     <button
@@ -187,6 +221,35 @@ const Layout = ({ children }) => {
                   >
                     Recommendations
                   </Link>
+
+                  {/* AI Services in Mobile */}
+                  <div className="border-t border-gray-200 pt-2">
+                    <p className="px-2 text-gray-500 text-xs">AI Services</p>
+
+                    <Link
+                      to="/aircm"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block px-2 py-1 text-sm hover:text-cyan-600"
+                    >
+                      AI Recommendation
+                    </Link>
+
+                    <Link
+                      to="/gapAnalysis"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block px-2 py-1 text-sm hover:text-cyan-600"
+                    >
+                      Gap Analysis
+                    </Link>
+
+                    <Link
+                      to="/career"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block px-2 py-1 text-sm hover:text-cyan-600"
+                    >
+                      Career Roadmap
+                    </Link>
+                  </div>
 
                   {/* Avatar and Logout in mobile */}
                   <div className="border-t border-gray-200 pt-2">
