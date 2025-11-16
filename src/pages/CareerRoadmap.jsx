@@ -148,7 +148,7 @@ const CareerRoadmap = () => {
                         <h4 className="font-semibold text-gray-900 mb-3">Milestones:</h4>
                         {phase.milestones.map((milestone, milIdx) => (
                           <div key={milIdx} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                            <div className="flex-shrink-0 mt-1">
+                            <div className="shrink-0 mt-1">
                               {milestone.completed ? (
                                 <CheckCircle2 className="w-5 h-5 text-green-600" />
                               ) : (
@@ -220,7 +220,7 @@ const CareerRoadmap = () => {
                 <ul className="space-y-2">
                   {roadmap.tips.map((tip, idx) => (
                     <li key={idx} className="flex items-start gap-2 text-gray-700">
-                      <CheckCircle2 className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
                       <span>{tip}</span>
                     </li>
                   ))}

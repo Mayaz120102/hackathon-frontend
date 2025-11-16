@@ -108,6 +108,13 @@ const Layout = ({ children }) => {
                       >
                         Career Roadmap
                       </Link>
+
+                       <Link
+                        to="/chatbot"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-cyan-50"
+                      >
+                        Chat bot
+                      </Link>
                     </div>
                   </div>
 
@@ -249,6 +256,15 @@ const Layout = ({ children }) => {
                     >
                       Career Roadmap
                     </Link>
+                      <Link
+                      to="/chatbot"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block px-2 py-1 text-sm hover:text-cyan-600"
+                    >
+                      Career Bot
+                    </Link>
+
+
                   </div>
 
                   {/* Avatar and Logout in mobile */}

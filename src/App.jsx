@@ -18,6 +18,7 @@ import JobDetails from './pages/JobDetails';
 import AIRecommendations from './pages/AIRecommendations';
 import GapAnalysis from './pages/GapAnalysis';
 import CareerRoadmap from './pages/CareerRoadmap';
+import ChatBot from './pages/CareerBot';
 
 // New Import
 import RecommendationsDashboard from './pages/RecommendationsDashboard';
@@ -163,6 +164,19 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+            <Route
+            path="/chatbot"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <ChatBot />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+
+
 
           {/* 404 Route */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />

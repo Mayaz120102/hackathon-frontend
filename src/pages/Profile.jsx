@@ -237,13 +237,13 @@ const Profile = () => {
         {/* Success/Error Messages */}
         {success && (
           <div className="mb-6 p-3 sm:p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg flex items-start">
-            <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 mr-2 shrink-0 mt-0.5" />
             <span className="text-sm sm:text-base">{success}</span>
           </div>
         )}
         {error && (
           <div className="mb-6 p-3 sm:p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-start">
-            <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 mr-2 shrink-0 mt-0.5" />
             <span className="text-sm sm:text-base">{error}</span>
           </div>
         )}
@@ -274,7 +274,7 @@ const Profile = () => {
             <div className="bg-white rounded-lg shadow p-4 sm:p-6">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-linear-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center shrink-0">
                     <span className="text-2xl sm:text-3xl font-bold text-white">TA</span>
                   </div>
                   <div>
@@ -447,7 +447,7 @@ const Profile = () => {
               {profileData.cv_pdf ? (
                 <div className="space-y-3">
                   <div className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
-                    <FileText className="w-6 sm:w-8 h-6 sm:h-8 text-teal-600 mr-3 flex-shrink-0" />
+                    <FileText className="w-6 sm:w-8 h-6 sm:h-8 text-teal-600 mr-3 shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">
                         Resume.pdf
@@ -518,7 +518,7 @@ const Profile = () => {
                     <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center flex-1 min-w-0">
-                          <FileText className="w-5 h-5 text-blue-600 mr-2 flex-shrink-0" />
+                          <FileText className="w-5 h-5 text-blue-600 mr-2 shrink-0" />
                           <span className="text-xs sm:text-sm text-gray-900 truncate font-medium">
                             {cvFile.name}
                           </span>
